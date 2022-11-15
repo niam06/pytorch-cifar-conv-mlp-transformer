@@ -29,6 +29,8 @@ from utils import progress_bar
 from randomaug import RandAugment
 from models.vit import ViT
 from models.convmixer import ConvMixer
+from models.resnext import ResNeXt29_2x64d
+
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -116,6 +118,8 @@ elif args.net=='res50':
     net = ResNet50()
 elif args.net=='res101':
     net = ResNet101()
+elif args.net=="resnext":
+    net = ResNeXt29_2x64d()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
@@ -346,4 +350,3 @@ for epoch in range(start_epoch, args.n_epochs):
 # writeout wandb
 if usewandb:
     wandb.save("wandb_{}.h5".format(args.net))
-    
