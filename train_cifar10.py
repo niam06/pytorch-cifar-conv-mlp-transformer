@@ -30,6 +30,8 @@ from randomaug import RandAugment
 from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.resnext import ResNeXt29_2x64d
+from models.senet import SENet18
+
 
 
 # parsers
@@ -120,6 +122,8 @@ elif args.net=='res101':
     net = ResNet101()
 elif args.net=="resnext":
     net = ResNeXt29_2x64d()
+elif args.net=="senet":
+    net = SENet18()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
