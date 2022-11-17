@@ -119,6 +119,8 @@ elif args.net=='res101':
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
+elif args.net=="mobilenetV2":
+    net = MobileNetV2()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
