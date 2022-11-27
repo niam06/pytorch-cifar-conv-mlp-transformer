@@ -1,5 +1,5 @@
 '''ResNeXt in PyTorch'''
-# Copied From https://github.com/kuangliu/pytorch-cifar/blob/master/models/resnext.py
+# Refactored the RexNeXt implementation From https://github.com/kuangliu/pytorch-cifar/blob/master/models/resnext.py
 
 import torch
 import torch.nn as nn
