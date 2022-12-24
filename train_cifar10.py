@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
-
 Train CIFAR10 with PyTorch and Vision Transformers!
 written by @kentaroy47, @arutema47
-
 '''
 
 from __future__ import print_function
@@ -116,6 +114,8 @@ elif args.net=='res50':
     net = ResNet50()
 elif args.net=='res101':
     net = ResNet101()
+elif args.net=="googlenet":
+    net = GoogLeNet()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
@@ -346,4 +346,3 @@ for epoch in range(start_epoch, args.n_epochs):
 # writeout wandb
 if usewandb:
     wandb.save("wandb_{}.h5".format(args.net))
-    
