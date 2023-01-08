@@ -27,7 +27,7 @@ from utils import progress_bar
 from randomaug import RandAugment
 from models.vit import ViT
 from models.convmixer import ConvMixer
-
+from models.googlenet import GoogLeNet
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
