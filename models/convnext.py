@@ -5,6 +5,8 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
+# Paper Reference: https://openaccess.thecvf.com/content/CVPR2022/html/Liu_A_ConvNet_for_the_2020s_CVPR_2022_paper.html
+# Code Copied From: https://github.com/facebookresearch/ConvNeXt/blob/main/models/convnext.py
 
 import torch
 import torch.nn as nn
