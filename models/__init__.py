@@ -11,6 +11,7 @@ from models.vgg import *
 from models.resnet import *
 from models.efficientnet import *
 from models.densenet import *
+from models.convnext import *
 #from resnext import *
 #from preact_resnet import *
 #from mobilenet import *
