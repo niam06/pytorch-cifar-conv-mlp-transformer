@@ -10,6 +10,7 @@ from models.vgg import *
 #from shufflenet import *
 from models.resnet import *
 from models.efficientnet import *
+from models.densenet import *
 #from resnext import *
 #from preact_resnet import *
 #from mobilenet import *
