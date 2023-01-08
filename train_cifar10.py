@@ -134,7 +134,6 @@ elif args.net=="efficientnetb0":
     net = EfficientNetB0()
 elif args.net=="dla":
     net = DLA()
-    
 elif args.net=='convnext_tiny':
     net = convnext_tiny()
 elif args.net=='convnext_small':
@@ -145,8 +144,6 @@ elif args.net=='convnext_large':
     net = convnext_large()
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
-
-    
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
