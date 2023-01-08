@@ -32,6 +32,7 @@ from models.dla import DLA
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
 #from models.convnext import ConvNeXt
+#from models.regnet import RegNet
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
@@ -144,6 +145,12 @@ elif args.net=='convnext_large':
     net = convnext_large()
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
+elif args.net=='regnetx200':
+    net = RegNetX_200MF()
+elif args.net=='regnetx400':
+    net = RegNetX_400MF()
+elif args.net=="regnety400":
+    net = RegNetY_400MF()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
