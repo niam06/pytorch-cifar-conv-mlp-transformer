@@ -31,6 +31,7 @@ from models.googlenet import GoogLeNet
 from models.dla import DLA
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
+#from models.convnext import ConvNeXt
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
@@ -133,6 +134,19 @@ elif args.net=="efficientnetb0":
     net = EfficientNetB0()
 elif args.net=="dla":
     net = DLA()
+    
+elif args.net=='convnext_tiny':
+    net = convnext_tiny()
+elif args.net=='convnext_small':
+    net = convnext_small()
+elif args.net=='convnext_base':
+    net = convnext_base()
+elif args.net=='convnext_large':
+    net = convnext_large()
+elif args.net=='convnext_xlarge':
+    net = convnext_xlarge()
+
+    
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
