@@ -9,6 +9,7 @@ from models.vgg import *
 #from googlenet import *
 #from shufflenet import *
 from models.resnet import *
+from models.efficientnet import *
 #from resnext import *
 #from preact_resnet import *
 #from mobilenet import *
