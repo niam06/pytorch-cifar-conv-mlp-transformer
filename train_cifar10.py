@@ -28,6 +28,7 @@ from randomaug import RandAugment
 from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
+from models.dla import DLA
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
 # parsers
@@ -130,6 +131,8 @@ elif args.net=="googlenet":
     net = GoogLeNet()
 elif args.net=="efficientnetb0":
     net = EfficientNetB0()
+elif args.net=="dla":
+    net = DLA()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
