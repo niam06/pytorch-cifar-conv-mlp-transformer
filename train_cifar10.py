@@ -29,6 +29,7 @@ from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
 #from models.efficientnet import EfficientNet
+#from models.densenet import DenseNet
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
@@ -115,6 +116,16 @@ elif args.net=='res50':
     net = ResNet50()
 elif args.net=='res101':
     net = ResNet101()
+elif args.net=='densenet121':
+    net = DenseNet121()
+elif args.net=='densenet161':
+    net = DenseNet161()
+elif args.net=='densenet169':
+    net = DenseNet169()
+elif args.net=='densenet201':
+    net = DenseNet201()
+elif args.net=='densenet':
+    net = densenet_cifar()
 elif args.net=="googlenet":
     net = GoogLeNet()
 elif args.net=="efficientnetb0":
