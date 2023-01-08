@@ -2,3 +2,4 @@ vit-pytorch
 einops
 odach
 wandb
+timm
