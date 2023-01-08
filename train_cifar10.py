@@ -28,6 +28,7 @@ from randomaug import RandAugment
 from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
+from models.efficientnet import EfficientNet
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
@@ -116,6 +117,8 @@ elif args.net=='res101':
     net = ResNet101()
 elif args.net=="googlenet":
     net = GoogLeNet()
+elif args.net=="efficientnetb0":
+    net = EfficientNetB0()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
