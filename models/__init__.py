@@ -14,3 +14,4 @@ from models.resnet import *
 #from mobilenet import *
 from models.mobilenetv2 import *
 from models.convmlp import *
+from models.g_mlp import *
