@@ -30,6 +30,7 @@ from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
 from models.dla import DLA
 from models.xception import xception
+from models.dynamixer import DynaMixer
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
 #from models.convnext import ConvNeXt
@@ -154,6 +155,8 @@ elif args.net=="regnety400":
     net = RegNetY_400MF()
 elif args.net=="xception":
     net = xception()
+elif args.net=="dynamixer":
+    net = DynaMixer()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
