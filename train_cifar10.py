@@ -121,6 +121,8 @@ elif args.net=="convmixer":
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
 elif args.net=="mobilenet_v2":
     net=MobileNetV2()
+elif args.net=="convmlp":
+    net=ConvMLP()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
