@@ -16,9 +16,9 @@ model_urls = {
 
 class ConvMLP(nn.Module):
     def __init__(self,
-                 blocks=[2, 4, 2],
-                 dims=[128, 256, 512],
-                 mlp_ratios=[2, 2, 2],
+                 blocks,
+                 dims,
+                 mlp_ratios,
                  channels=64,
                  n_conv_blocks=3,
                  classifier_head=True,
