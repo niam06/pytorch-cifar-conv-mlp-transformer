@@ -22,7 +22,7 @@ class ConvMLP(nn.Module):
                  channels=64,
                  n_conv_blocks=3,
                  classifier_head=True,
-                 num_classes=1000,
+                 num_classes=10,
                  *args, **kwargs):
         super(ConvMLP, self).__init__()
         assert len(blocks) == len(dims) == len(mlp_ratios), \
