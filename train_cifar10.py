@@ -155,8 +155,6 @@ elif args.net=="regnety400":
     net = RegNetY_400MF()
 elif args.net=="xception":
     net = xception()
-elif args.net=="dynamixer":
-    net = DynaMixer()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
