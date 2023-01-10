@@ -29,7 +29,7 @@ from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
 from models.dla import DLA
-form models.xception import Xception
+from models.xception import Xception
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
 #from models.convnext import ConvNeXt
