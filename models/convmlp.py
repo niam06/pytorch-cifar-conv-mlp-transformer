@@ -18,7 +18,7 @@ class ConvMLP(nn.Module):
     def __init__(self,
                  blocks=3,
                  dims=512,
-                 mlp_ratios=4.,
+                 mlp_ratios=4,
                  channels=64,
                  n_conv_blocks=3,
                  classifier_head=True,
