@@ -123,6 +123,8 @@ elif args.net=="mobilenet_v2":
     net=MobileNetV2()
 elif args.net=="convmlp":
     net=ConvMLP(blocks=[2, 4, 2],dims=[128, 256, 512],mlp_ratios=[2, 2, 2])
+elif args.net=="g_mlp":
+    net=gMLPForImageClassification()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
