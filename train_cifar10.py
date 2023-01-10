@@ -27,8 +27,11 @@ import time
 from models import *
 from utils import progress_bar
 from randomaug import RandAugment
+from functools import partial
 from models.vit import ViT
 from models.convmixer import ConvMixer
+from models.dpn import DPN92
+from models.crossvit import CrossVisionTransformer
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -218,6 +221,15 @@ elif args.net=="swin":
     net = swin_t(window_size=args.patch,
                 num_classes=10,
                 downscaling_factors=(2,2,2,1))
+elif args.net=='dpn92':
+    net = DPN92()
+elif args.net=='crossvit':
+    net = CrossVisionTransformer(img_size=[240, 224],
+                          patch_size=[12, 16], embed_dim=[96, 192], depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+                          num_heads=[3, 3], mlp_ratio=[4, 4, 1], qkv_bias=True,
+                          norm_layer=partial(nn.LayerNorm, eps=1e-6))
+    state_dict = torch.hub.load_state_dict_from_url("https://github.com/IBM/CrossViT/releases/download/weights-0.1/crossvit_tiny_224.pth", map_location='cpu')
+    net.load_state_dict(state_dict)
 
 # For Multi-GPU
 if 'cuda' in device:
