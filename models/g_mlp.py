@@ -39,7 +39,7 @@ class gMLPBlock(nn.Module):
         return out
 
 class gMLP(nn.Module):
-    def __init__(self, d_model=256, d_ffn=1536, seq_len=256, depth=30):
+    def __init__(self, d_model=512, d_ffn=1536, seq_len=256, depth=6):
         super().__init__()
         self.model = nn.Sequential(
             *[gMLPBlock(d_model, d_ffn, seq_len) for _ in range(depth)]
@@ -52,13 +52,13 @@ class gMLP(nn.Module):
 class gMLPForImageClassification(gMLP):
     def __init__(
         self,
-        image_size=256,
+        image_size=32,
         patch_size=16,
         in_channels=3,
-        num_classes=1000,
-        d_model=256,
+        num_classes=10,
+        d_model=512,
         d_ffn=1536,
-        depth=30,
+        depth=6,
     ):
         num_patches = check_sizes(image_size, patch_size)
         super().__init__(d_model, d_ffn, num_patches, depth)
