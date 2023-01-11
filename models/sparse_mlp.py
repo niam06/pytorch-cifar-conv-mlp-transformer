@@ -115,10 +115,10 @@ class sMLPStage(nn.Module):
 class SparseMLP(nn.Module):
     def __init__(
         self,
-        image_size=224,
+        image_size=32,
         patch_size=4,
         in_channels=3,
-        num_classes=1000,
+        num_classes=10,
         d_model=96,
         depth=[2,10,24,2],
         expansion_factor = 2,
