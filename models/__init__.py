@@ -15,3 +15,4 @@ from models.resnet import *
 from models.mobilenetv2 import *
 from models.convmlp import *
 from models.g_mlp import *
+from models.sparse_mlp import *
