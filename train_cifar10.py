@@ -229,6 +229,9 @@ elif args.net=="swin":
 elif args.net=="hrnet":
     from models.hrnet import *
     net = get_cls_net()
+elif args.net=="squeezenet":
+    from models.squeezenet import *
+    net = SqueezeNet(bs)
 
 # For Multi-GPU
 if 'cuda' in device:
