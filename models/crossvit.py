@@ -308,3 +308,144 @@ class CrossVisionTransformer(nn.Module):
         ce_logits = [self.head[i](x) for i, x in enumerate(xs)]
         ce_logits = torch.mean(torch.stack(ce_logits, dim=0), dim=0)
         return ce_logits
+
+
+
+
+@register_model
+def crossvit_tiny_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[96, 192], depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+                              num_heads=[3, 3], mlp_ratio=[4, 4, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_tiny_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_small_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[192, 384], depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+                              num_heads=[6, 6], mlp_ratio=[4, 4, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_small_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_base_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[384, 768], depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+                              num_heads=[12, 12], mlp_ratio=[4, 4, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_base_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_9_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[128, 256], depth=[[1, 3, 0], [1, 3, 0], [1, 3, 0]],
+                              num_heads=[4, 4], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_9_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_15_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[192, 384], depth=[[1, 5, 0], [1, 5, 0], [1, 5, 0]],
+                              num_heads=[6, 6], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_15_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_18_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[224, 448], depth=[[1, 6, 0], [1, 6, 0], [1, 6, 0]],
+                              num_heads=[7, 7], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_18_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+
+@register_model
+def crossvit_9_dagger_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[128, 256], depth=[[1, 3, 0], [1, 3, 0], [1, 3, 0]],
+                              num_heads=[4, 4], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), multi_conv=True, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_9_dagger_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+@register_model
+def crossvit_15_dagger_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[192, 384], depth=[[1, 5, 0], [1, 5, 0], [1, 5, 0]],
+                              num_heads=[6, 6], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), multi_conv=True, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_15_dagger_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+@register_model
+def crossvit_15_dagger_384(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[408, 384],
+                              patch_size=[12, 16], embed_dim=[192, 384], depth=[[1, 5, 0], [1, 5, 0], [1, 5, 0]],
+                              num_heads=[6, 6], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), multi_conv=True, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_15_dagger_384'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+@register_model
+def crossvit_18_dagger_224(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[240, 224],
+                              patch_size=[12, 16], embed_dim=[224, 448], depth=[[1, 6, 0], [1, 6, 0], [1, 6, 0]],
+                              num_heads=[7, 7], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), multi_conv=True, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_18_dagger_224'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model
+
+@register_model
+def crossvit_18_dagger_384(pretrained=False, **kwargs):
+    model = CrossVisionTransformer(img_size=[408, 384],
+                              patch_size=[12, 16], embed_dim=[224, 448], depth=[[1, 6, 0], [1, 6, 0], [1, 6, 0]],
+                              num_heads=[7, 7], mlp_ratio=[3, 3, 1], qkv_bias=True,
+                              norm_layer=partial(nn.LayerNorm, eps=1e-6), multi_conv=True, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        state_dict = torch.hub.load_state_dict_from_url(_model_urls['crossvit_18_dagger_384'], map_location='cpu')
+        model.load_state_dict(state_dict)
+    return model

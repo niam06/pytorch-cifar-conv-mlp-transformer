@@ -32,6 +32,12 @@ from models.vit import ViT
 from models.convmixer import ConvMixer
 from models.dpn import DPN92
 from models.crossvit import CrossVisionTransformer
+from models.pvt import PyramidVisionTransformer
+from models.pvt_v2 import PyramidVisionTransformerV2
+from models.visformer import Visformer
+from models.resmlp import ResMLP
+from models.vip import VisionPermutator, WeightedPermuteMLP
+from models.resnet_rs import Resnet_RS
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -230,6 +236,27 @@ elif args.net=='crossvit':
                           norm_layer=partial(nn.LayerNorm, eps=1e-6))
     state_dict = torch.hub.load_state_dict_from_url("https://github.com/IBM/CrossViT/releases/download/weights-0.1/crossvit_tiny_224.pth", map_location='cpu')
     net.load_state_dict(state_dict)
+elif args.net=='pvt':
+    net = PyramidVisionTransformer(
+        patch_size=4, embed_dims=[64, 128, 320, 512], num_heads=[1, 2, 5, 8], mlp_ratios=[8, 8, 4, 4], qkv_bias=True,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[2, 2, 2, 2], sr_ratios=[8, 4, 2, 1])
+elif args.net=='pvt_v2':
+    net = PyramidVisionTransformerV2(
+        patch_size=4, embed_dims=[32, 64, 160, 256], num_heads=[1, 2, 5, 8], mlp_ratios=[8, 8, 4, 4], qkv_bias=True,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[2, 2, 2, 2], sr_ratios=[8, 4, 2, 1])
+elif args.net=='visformer':
+
+    net = Visformer(img_size=224, init_channels=32, embed_dim=384, depth=[7,4,4], num_heads=6, mlp_ratio=4., group=8,
+                      attn_stage='011', spatial_conv='100', norm_layer=nn.BatchNorm2d, conv_init=True,
+                      embedding_norm=nn.BatchNorm2d)
+elif args.net=='resmlp':
+    net = ResMLP(in_channels=3, image_size=224, patch_size=16, num_classes=1000,
+                     dim=384, depth=12, mlp_dim=384*4)
+elif args.net=='vip':
+    net = VisionPermutator([4, 3, 8, 3], embed_dims=[384, 384, 384, 384], patch_size=14, transitions=[False, False, False, False],
+        segment_dim=[16, 16, 16, 16], mlp_ratios=[3, 3, 3, 3], mlp_fn=WeightedPermuteMLP)
+elif args.net=='resnetrs':
+    net = Resnet_RS(num_classes=10)
 
 # For Multi-GPU
 if 'cuda' in device:
