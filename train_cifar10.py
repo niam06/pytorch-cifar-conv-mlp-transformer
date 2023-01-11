@@ -226,6 +226,9 @@ elif args.net=="swin":
     net = swin_t(window_size=args.patch,
                 num_classes=10,
                 downscaling_factors=(2,2,2,1))
+elif args.net=="hrnet":
+    from models.hrnet import *
+    net = get_cls_net()
 
 # For Multi-GPU
 if 'cuda' in device:

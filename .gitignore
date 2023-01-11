@@ -77,9 +77,15 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+
 # IPython
 profile_default/
 ipython_config.py
+PlayGround.ipynb
+
+#Wandb
+wandb
+data
 
 # pyenv
 .python-version
