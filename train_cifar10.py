@@ -232,6 +232,9 @@ elif args.net=="hrnet":
 elif args.net=="squeezenet":
     from models.squeezenet import *
     net = SqueezeNet(bs)
+elif args.net=="gcvit":
+    from models.gcvit import *
+    net = gc_vit_small(num_classes=10)
 
 # For Multi-GPU
 if 'cuda' in device:
