@@ -37,7 +37,8 @@ from models.pvt_v2 import PyramidVisionTransformerV2
 from models.visformer import Visformer
 from models.resmlp import ResMLP
 from models.vip import VisionPermutator, WeightedPermuteMLP
-from models.efficientformer import EfficientFormer
+from models.maxvit import MaxViT
+from models.mvitv2 import MultiScaleVit
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -519,7 +520,7 @@ elif args.net=='visformer_tiny':
     embedding_norm=nn.BatchNorm2d,
     num_classes=10
 )
-elif args.met=='visformer_small':
+elif args.net=='visformer_small':
     net = Visformer(
     img_size=224, 
     init_channels=32, 
@@ -596,14 +597,60 @@ elif args.net=='maxvit':
     embed_dim=64,
     num_classes=10
 )
-elif args.net=='efficientformer':
-    net = EfficientFormer(
-    layers=[3, 2, 6, 4],
-    embed_dims=[48, 96, 224, 448],
-    downsamples=[True, True, True, True],
-    vit_num=1,
+elif args.net=='max_vit_tiny_224':
+    net = MaxViT(
+    depths=(2, 2, 5, 2),
+    channels=(64, 128, 256, 512),
+    embed_dim=64,
     num_classes=10
 )
+elif args.net=='max_vit_small_224':
+    net = MaxViT(
+    depths=(2, 2, 5, 2),
+    channels=(64, 128, 256, 512),
+    embed_dim=64,
+    num_classes=10
+)
+elif args.net=='max_vit_base_224':
+    net = MaxViT(
+    depths=(2, 6, 14, 2),
+    channels=(96, 192, 384, 768),
+    embed_dim=64,
+    num_classes=10
+)
+elif args.net=='max_vit_large_224':
+    net = MaxViT(
+    depths=(2, 6, 14, 2),
+    channels=(128, 256, 512, 1024),
+    embed_dim=128,
+    num_classes=10
+)
+elif args.net=='mvitv2':
+    net = MultiScaleVit(
+    depths=(1, 2, 5, 2),
+    num_classes=10
+)
+elif args.net=='mvitv2_tiny':
+    net = MultiScaleVit(
+    depths=(1, 2, 5, 2),
+    num_classes=10
+)
+elif args.net=='mvitv2_small':
+    net = MultiScaleVit(
+    depths=(1, 2, 11, 2),
+    num_classes=10
+)
+elif args.net=='mvitv2_base':
+    net = MultiScaleVit(
+    depths=(2, 3, 16, 3),
+    num_classes=10
+)
+elif args.net=='mvitv2_large':
+    net = MultiScaleVit(
+    depths=(2, 6, 36, 4),
+    num_classes=10
+)
+
 
 
 # For Multi-GPU
