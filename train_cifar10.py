@@ -30,14 +30,14 @@ from randomaug import RandAugment
 from functools import partial
 from models.vit import ViT
 from models.convmixer import ConvMixer
-from models.dpn import DPN92
+from models.dpn import DPN92, DPN26
 from models.crossvit import CrossVisionTransformer
 from models.pvt import PyramidVisionTransformer
 from models.pvt_v2 import PyramidVisionTransformerV2
 from models.visformer import Visformer
 from models.resmlp import ResMLP
 from models.vip import VisionPermutator, WeightedPermuteMLP
-from models.resnet_rs import Resnet_RS
+from models.efficientformer import EfficientFormer
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -227,36 +227,384 @@ elif args.net=="swin":
     net = swin_t(window_size=args.patch,
                 num_classes=10,
                 downscaling_factors=(2,2,2,1))
+elif args.net=='dpn':
+    net = DPN26()
 elif args.net=='dpn92':
     net = DPN92()
+elif args.net=='dpn26':
+    net = DPN26()
 elif args.net=='crossvit':
-    net = CrossVisionTransformer(img_size=[240, 224],
-                          patch_size=[12, 16], embed_dim=[96, 192], depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
-                          num_heads=[3, 3], mlp_ratio=[4, 4, 1], qkv_bias=True,
-                          norm_layer=partial(nn.LayerNorm, eps=1e-6))
-    state_dict = torch.hub.load_state_dict_from_url("https://github.com/IBM/CrossViT/releases/download/weights-0.1/crossvit_tiny_224.pth", map_location='cpu')
-    net.load_state_dict(state_dict)
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[96, 192], 
+    depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+    num_heads=[3, 3], 
+    mlp_ratio=[4, 4, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_tiny_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[96, 192], 
+    depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+    num_heads=[3, 3], 
+    mlp_ratio=[4, 4, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_small_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[192, 384], 
+    depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+    num_heads=[6, 6], 
+    mlp_ratio=[4, 4, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_base_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[384, 768], 
+    depth=[[1, 4, 0], [1, 4, 0], [1, 4, 0]],
+    num_heads=[12, 12], 
+    mlp_ratio=[4, 4, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_9_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[128, 256], 
+    depth=[[1, 3, 0], [1, 3, 0], [1, 3, 0]],
+    num_heads=[4, 4], 
+    mlp_ratio=[3, 3, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_15_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[192, 384], 
+    depth=[[1, 5, 0], [1, 5, 0], [1, 5, 0]],
+    num_heads=[6, 6], 
+    mlp_ratio=[3, 3, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
+elif args.net=='crossvit_18_224':
+    net = CrossVisionTransformer(
+    img_size=[240, 224],
+    patch_size=[12, 16], 
+    embed_dim=[224, 448], 
+    depth=[[1, 6, 0], [1, 6, 0], [1, 6, 0]],
+    num_heads=[7, 7], 
+    mlp_ratio=[3, 3, 1], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6),
+    num_classes=10
+)
 elif args.net=='pvt':
     net = PyramidVisionTransformer(
-        patch_size=4, embed_dims=[64, 128, 320, 512], num_heads=[1, 2, 5, 8], mlp_ratios=[8, 8, 4, 4], qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[2, 2, 2, 2], sr_ratios=[8, 4, 2, 1])
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[2, 2, 2, 2], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_tiny':
+    net = PyramidVisionTransformer(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[2, 2, 2, 2], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_small':
+    net = PyramidVisionTransformer(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 4, 6, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_medium':
+    net = PyramidVisionTransformer(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 4, 18, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_large':
+    net = PyramidVisionTransformer(
+        patch_size=4, 
+        embed_dims=[64, 128, 320, 512], 
+        num_heads=[1, 2, 5, 8], 
+        mlp_ratios=[8, 8, 4, 4], 
+        qkv_bias=True,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+        depths=[3, 8, 27, 3], 
+        sr_ratios=[8, 4, 2, 1],
+        num_classes=10
+)
+elif args.net=='pvt_huge_v2':
+    net = PyramidVisionTransformer(
+    patch_size=4, 
+    embed_dims=[128, 256, 512, 768], 
+    num_heads=[2, 4, 8, 12], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 10, 60, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    # drop_rate=0.0, drop_path_rate=0.02)
+    num_classes=10
+)
 elif args.net=='pvt_v2':
     net = PyramidVisionTransformerV2(
-        patch_size=4, embed_dims=[32, 64, 160, 256], num_heads=[1, 2, 5, 8], mlp_ratios=[8, 8, 4, 4], qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[2, 2, 2, 2], sr_ratios=[8, 4, 2, 1])
+    patch_size=4, 
+    embed_dims=[32, 64, 160, 256], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[2, 2, 2, 2], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b0':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[32, 64, 160, 256], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[2, 2, 2, 2], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b1':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[2, 2, 2, 2], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b2':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 4, 6, 3], 
+    sr_ratios=[8, 4, 2, 1], 
+    num_classes=10
+)
+elif args.net=='pvt_v2_b3':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 4, 18, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b4':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 8, 27, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b5':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[4, 4, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 6, 40, 3], 
+    sr_ratios=[8, 4, 2, 1],
+    num_classes=10
+)
+elif args.net=='pvt_v2_b2_li':
+    net = PyramidVisionTransformerV2(
+    patch_size=4, 
+    embed_dims=[64, 128, 320, 512], 
+    num_heads=[1, 2, 5, 8], 
+    mlp_ratios=[8, 8, 4, 4], 
+    qkv_bias=True,
+    norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+    depths=[3, 4, 6, 3], 
+    sr_ratios=[8, 4, 2, 1], 
+    linear=True, 
+    num_classes=10
+)
 elif args.net=='visformer':
-
-    net = Visformer(img_size=224, init_channels=32, embed_dim=384, depth=[7,4,4], num_heads=6, mlp_ratio=4., group=8,
-                      attn_stage='011', spatial_conv='100', norm_layer=nn.BatchNorm2d, conv_init=True,
-                      embedding_norm=nn.BatchNorm2d)
+    net = Visformer(
+    img_size=224, 
+    init_channels=32, 
+    embed_dim=384, 
+    depth=[7,4,4], 
+    num_heads=6, 
+    mlp_ratio=4., 
+    group=8,
+    attn_stage='011', 
+    spatial_conv='100', 
+    norm_layer=nn.BatchNorm2d, 
+    conv_init=True,
+    embedding_norm=nn.BatchNorm2d,
+    num_classes=10
+)
+elif args.net=='visformer_tiny':
+    net = Visformer(
+    img_size=224, 
+    init_channels=16, 
+    embed_dim=192, 
+    depth=[7,4,4], 
+    num_heads=3, 
+    mlp_ratio=4., 
+    group=8,
+    attn_stage='011', 
+    spatial_conv='100', 
+    norm_layer=nn.BatchNorm2d, 
+    conv_init=True,
+    embedding_norm=nn.BatchNorm2d,
+    num_classes=10
+)
+elif args.met=='visformer_small':
+    net = Visformer(
+    img_size=224, 
+    init_channels=32, 
+    embed_dim=384, 
+    depth=[7,4,4], 
+    num_heads=6, 
+    mlp_ratio=4., 
+    group=8,
+    attn_stage='011', 
+    spatial_conv='100', 
+    norm_layer=nn.BatchNorm2d, 
+    conv_init=True,
+    embedding_norm=nn.BatchNorm2d,
+    num_classes=10
+)
 elif args.net=='resmlp':
-    net = ResMLP(in_channels=3, image_size=224, patch_size=16, num_classes=1000,
-                     dim=384, depth=12, mlp_dim=384*4)
+    net = ResMLP(
+    in_channels=3, 
+    image_size=224, 
+    patch_size=16, 
+    num_classes=10,
+    dim=384, 
+    depth=12, 
+    mlp_dim=384*4
+)
 elif args.net=='vip':
-    net = VisionPermutator([4, 3, 8, 3], embed_dims=[384, 384, 384, 384], patch_size=14, transitions=[False, False, False, False],
-        segment_dim=[16, 16, 16, 16], mlp_ratios=[3, 3, 3, 3], mlp_fn=WeightedPermuteMLP)
-elif args.net=='resnetrs':
-    net = Resnet_RS(num_classes=10)
+    net = VisionPermutator(
+    [4, 3, 8, 3], 
+    embed_dims=[384, 384, 384, 384], 
+    patch_size=14, 
+    transitions=[False, False, False, False],
+    segment_dim=[16, 16, 16, 16], 
+    mlp_ratios=[3, 3, 3, 3], 
+    mlp_fn=WeightedPermuteMLP,
+    num_classes=10
+)
+elif args.net=='vip_s7':
+    net = VisionPermutator(
+        layers=[4, 3, 8, 3],
+        embed_dims=[192, 384, 384, 384],
+        patch_size=7,
+        transitions=[True, False, False, False],
+        segment_dim=[32, 16, 16, 16],
+        mlp_ratios=[3, 3, 3, 3],
+        mlp_fn=WeightedPermuteMLP,
+        num_classes=10
+)
+elif args.net=='vip_m7':
+    net = VisionPermutator(
+        layers=[4, 3, 14, 3],
+        embed_dims=[256, 256, 512, 512],
+        patch_size=7,
+        transitions=[False, True, False, False],
+        segment_dim=[32, 32, 16, 16],
+        mlp_ratios=[3, 3, 3, 3],
+        mlp_fn=WeightedPermuteMLP,
+        num_classes=10
+)
+elif args.net=='vip_l7':
+    net = VisionPermutator(
+        layers=[8, 8, 16, 4],
+        embed_dims=[256, 512, 512, 512],
+        patch_size=7,
+        transitions=[True, False, False, False],
+        segment_dim=[32, 16, 16, 16],
+        mlp_ratios=[3, 3, 3, 3],
+        mlp_fn=WeightedPermuteMLP,
+        num_classes=10
+)
+elif args.net=='maxvit':
+    net = MaxViT(
+    depths=(2, 2, 5, 2),
+    channels=(64, 128, 256, 512),
+    embed_dim=64,
+    num_classes=10
+)
+elif args.net=='efficientformer':
+    net = EfficientFormer(
+    layers=[3, 2, 6, 4],
+    embed_dims=[48, 96, 224, 448],
+    downsamples=[True, True, True, True],
+    vit_num=1,
+    num_classes=10
+)
+
 
 # For Multi-GPU
 if 'cuda' in device:
