@@ -38,7 +38,8 @@ from models.visformer import Visformer
 from models.resmlp import ResMLP
 from models.vip import VisionPermutator, WeightedPermuteMLP
 from models.maxvit import MaxViT
-from models.mvitv2 import MultiScaleVit
+from models.cyclemlp import CycleNet
+from models.asmlp import AS_MLP
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -625,32 +626,18 @@ elif args.net=='max_vit_large_224':
     embed_dim=128,
     num_classes=10
 )
-elif args.net=='mvitv2':
-    net = MultiScaleVit(
-    depths=(1, 2, 5, 2),
+elif args.net=='cyclemlp':
+    net = CycleNet(
+    transitions = [True, True, True, True],
+    layers = [2, 2, 4, 2],
+    mlp_ratios = [4, 4, 4, 4],
+    embed_dims = [64, 128, 320, 512],
     num_classes=10
-)
-elif args.net=='mvitv2_tiny':
-    net = MultiScaleVit(
-    depths=(1, 2, 5, 2),
+    )
+elif args.net=='asmlp':
+    net = AS_MLP(
     num_classes=10
-)
-elif args.net=='mvitv2_small':
-    net = MultiScaleVit(
-    depths=(1, 2, 11, 2),
-    num_classes=10
-)
-elif args.net=='mvitv2_base':
-    net = MultiScaleVit(
-    depths=(2, 3, 16, 3),
-    num_classes=10
-)
-elif args.net=='mvitv2_large':
-    net = MultiScaleVit(
-    depths=(2, 6, 36, 4),
-    num_classes=10
-)
-
+    )
 
 
 # For Multi-GPU
