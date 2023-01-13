@@ -139,7 +139,7 @@ dynamlp_settings = {
 }
 
 class DynaMixer(nn.Module):
-    def __init__(self, model_name: str = 'M', image_size = 224, in_channels: int = 3, num_classes: int = 1000):
+    def __init__(self, model_name: str = 'M', image_size = 32, in_channels: int = 3, num_classes: int = 10):
         super().__init__()
         assert model_name in dynamlp_settings.keys(), f"DynaMLP model name should be in {list(dynamlp_settings.keys())}"
         patch_size, embed_dims, depths, segment, mlp_ratio, dropout, hidden_dim_DMO = dynamlp_settings[model_name]
