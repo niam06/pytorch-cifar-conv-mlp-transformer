@@ -94,7 +94,7 @@ class S2MLPv1(nn.Module):
         out = self.mlp_head(embedding)
         return out
 
-def S2MLPv1_deep(num_classes: int = 1-, **kwargs):
+def S2MLPv1_deep(num_classes: int = 10, **kwargs):
     model = S2MLPv1(image_size=32,
                     patch_size=[16],
                     d_model=[384],
@@ -104,7 +104,7 @@ def S2MLPv1_deep(num_classes: int = 1-, **kwargs):
                     **kwargs)
     return model
 
-def S2MLPv1_wide(num_classes: int = 1-, **kwargs):
+def S2MLPv1_wide(num_classes: int = 10, **kwargs):
     model = S2MLPv1(image_size=32,
                     patch_size=[16],
                     d_model=[768],
