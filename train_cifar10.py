@@ -127,7 +127,7 @@ elif args.net=="g_mlp":
     net=gMLPForImageClassification()
 elif args.net=="sparse_mlp":
     net=SparseMLP()
-elif args.net=="morph_mlp:
+elif args.net=="morph_mlp":
     net=MorphMLP()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
