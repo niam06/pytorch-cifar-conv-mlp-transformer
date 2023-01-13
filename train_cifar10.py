@@ -149,7 +149,8 @@ elif args.net=='convnext_large':
     net = convnext_large()
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
-
+elif args.net=='raft_mlp':
+    net = RaftMLP()
 elif args.net=='regnetx200':
     net = RegNetX_200MF()
 elif args.net=='regnetx400':
