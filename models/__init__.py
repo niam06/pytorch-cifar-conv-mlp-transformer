@@ -19,3 +19,4 @@ from models.s2mlpv1 import *
 #from mobilenet import *
 #from mobilenetv2 import *
 from models.volo import *
+from models.xcit import *
