@@ -14,7 +14,7 @@
 
 import torch
 import torch.nn as nn
-from timm.models.layers import trunc_normal_, DropPath, to_2tuple
+from timm.models.layers import trunc_normal_, DropPath
 from timm.models.registry import register_model
 
 
@@ -139,7 +139,6 @@ class SE(nn.Module):
         y = self.avg_pool(x).view(b, c)
         y = self.fc(y).view(b, c, 1, 1)
         return x * y
-
 
 class ReduceSize(nn.Module):
     """

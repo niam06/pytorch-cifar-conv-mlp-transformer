@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -34,7 +32,8 @@ def main(args,
           weights_to='',
           net='res18',
           use_amp=False,
-          aug=True,):
+          aug=True,
+          opt='adam',):
     
     usewandb = args.wandb
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -45,7 +44,7 @@ def main(args,
 
     print ('==> Preparing data..')
 
-    if net in ['vit', 'cait']:
+    if net in ['cait', 'simplevit', 'vit_small', 'vit_tiny', 'cait_small', 'swin_small', 'swin_base', 'swin_large', 'swin_tiny', 'gcvit_tiny', 'gcit_small', 'gcit_base', 'gcit_large']:
         img_size = 224
     
     if dataset == 'cifar10':
@@ -91,7 +90,7 @@ def main(args,
 
     # Model factory..
     print('==> Building model..')
-    # net = VGG('VGG19')
+    
     if args.net=='res18':
         net = ResNet18()
     elif args.net=='vgg':
@@ -180,14 +179,33 @@ def main(args,
         emb_dropout = 0.1,
         layer_dropout = 0.05
     )
-    elif args.net=="swin":
+    elif args.net=="swin_tiny":
         net = swin_t(num_classes=num_classes)
-    elif args.net=="hrnet":
-        net = get_cls_net()
+    elif args.net=="swin_small":
+        net = swin_s(num_classes=num_classes)
+    elif args.net=="swin_base":
+        net = swin_b(num_classes=num_classes)
+    elif args.net=="swin_large":
+        net = swin_l(num_classes=num_classes)
+    elif args.net=="hrnet_18v1":
+        net = hrnet_18v1()
+        opt = 'sgd'
+    elif args.net=="hrnet_w32":
+        net = hrnet_w32()
+        opt = 'sgd'
+    elif args.net=="hrnet_w64":
+        net = hrnet_w64()
+        opt = 'sgd'
     elif args.net=="squeezenet":
         net = SqueezeNet(bs)
-    elif args.net=="gcvit":
+    elif args.net == "gcvit_tiny":
+        net = gc_vit_tiny(num_classes=num_classes)
+    elif args.net=="gcvit_small":
         net = gc_vit_small(num_classes=num_classes)
+    elif args.net=="gcvit_base":
+        net = gc_vit_base_384(num_classes=num_classes)
+    elif args.net=="gcvit_large":
+        net = gc_vit_large_384(num_classes=num_classes)
     else:
         print("No model found")
         exit()
@@ -199,9 +217,9 @@ def main(args,
         net = torch.nn.DataParallel(net) # make parallel
         cudnn.benchmark = True
 
-    if args.opt == "adam":
+    if opt == "adam":
         optimizer = optim.Adam(net.parameters(), lr=args.lr)
-    elif args.opt == "sgd":
+    elif opt == "sgd":
         optimizer = optim.SGD(net.parameters(), lr=args.lr)  
     
     if resume:
@@ -334,4 +352,5 @@ if __name__ == '__main__':
           weights_to=args.weights_to,
           resume=args.resume,
           use_amp=not args.noamp,
-          aug=args.noaug,)
+          aug=args.noaug,
+          opt=args.opt,)

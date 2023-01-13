@@ -1,7 +1,7 @@
 '''HRNet in PyTorch'''
 # Copied From https://github.dev/HRNet/HRNet-Image-Classification/blob/master/lib/models/cls_hrnet.py
 
-#Original Header ------------------------------------------------------------------------------
+# =======> Original Header ------------------------------------------------------------------------------
 # Copyright (c) Microsoft
 # Licensed under the MIT License.
 # Written by Bin Xiao (Bin.Xiao@microsoft.com)
@@ -14,10 +14,6 @@ from __future__ import print_function
 
 import os
 import logging
-import functools
-
-import numpy as np
-
 import torch
 import torch.nn as nn
 import torch._utils
@@ -513,48 +509,77 @@ class HighResolutionNet(nn.Module):
             model_dict.update(pretrained_dict)
             self.load_state_dict(model_dict)
 
-config = dict(
+config_18v1 = dict(
     MODEL = dict(
-    NAME = 'cls_hrnet',
+    NAME = 'cls_hrnet_18v1',
     IMAGE_SIZE = [224, 224],
     EXTRA = dict(
         STAGE1=dict(
             NUM_MODULES=1,
             NUM_BRANCHES=1,
             BLOCK='BOTTLENECK',
-            NUM_BLOCKS=(4,),
-            NUM_CHANNELS=(64,),
+            NUM_BLOCKS=(1,),
+            NUM_CHANNELS=(32,),
             FUSE_METHOD='SUM',
         ),
         STAGE2=dict(
             NUM_MODULES=1,
             NUM_BRANCHES=2,
             BLOCK='BASIC',
-            NUM_BLOCKS=(4, 4),
-            NUM_CHANNELS=(18, 36),
+            NUM_BLOCKS=(2, 2),
+            NUM_CHANNELS=(16, 32),
             FUSE_METHOD='SUM'
         ),
         STAGE3=dict(
-            NUM_MODULES=4,
+            NUM_MODULES=1,
             NUM_BRANCHES=3,
             BLOCK='BASIC',
-            NUM_BLOCKS=(4, 4, 4),
-            NUM_CHANNELS=(18, 36, 72),
+            NUM_BLOCKS=(2, 2, 2),
+            NUM_CHANNELS=(16, 32, 64),
             FUSE_METHOD='SUM'
         ),
         STAGE4=dict(
-            NUM_MODULES=3,
+            NUM_MODULES=1,
             NUM_BRANCHES=4,
             BLOCK='BASIC',
-            NUM_BLOCKS=(4, 4, 4, 4),
-            NUM_CHANNELS=(18, 36, 72, 144),
+            NUM_BLOCKS=(2, 2, 2, 2),
+            NUM_CHANNELS=(16, 32, 64, 128),
             FUSE_METHOD='SUM',
         ),
     ),
     ),
 )
 
-def get_cls_net(**kwargs):
-    model = HighResolutionNet(config, **kwargs)
+config_w32 = config_18v1.copy()
+config_w32['MODEL']['NAME'] = 'cls_hrnet_w32'
+config_w32['MODEL']['EXTRA']['STAGE1']['NUM_BLOCKS'] = (4,)
+config_w32['MODEL']['EXTRA']['STAGE1']['NUM_CHANNELS'] = (64,)
+config_w32['MODEL']['EXTRA']['STAGE2']['NUM_BLOCKS'] = (4, 4)
+config_w32['MODEL']['EXTRA']['STAGE2']['NUM_CHANNELS'] = (32, 64)
+config_w32['MODEL']['EXTRA']['STAGE3']['NUM_BLOCKS'] = (4, 4, 4)
+config_w32['MODEL']['EXTRA']['STAGE3']['NUM_CHANNELS'] = (32, 64, 128)
+config_w32['MODEL']['EXTRA']['STAGE4']['NUM_BLOCKS'] = (4, 4, 4, 4)
+config_w32['MODEL']['EXTRA']['STAGE4']['NUM_CHANNELS'] = (32, 64, 128, 256)
+
+config_w64 = config_w32.copy()
+config_w64['MODEL']['NAME'] = 'cls_hrnet_w64'
+config_w32['MODEL']['EXTRA']['STAGE2']['NUM_CHANNELS'] = (64, 128)
+config_w32['MODEL']['EXTRA']['STAGE3']['NUM_CHANNELS'] = (64, 128, 256)
+config_w32['MODEL']['EXTRA']['STAGE4']['NUM_CHANNELS'] = (64, 128, 256, 512)
+
+
+
+def hrnet_18v1(**kwargs):
+    model = HighResolutionNet(config_18v1, **kwargs)
+    model.init_weights()
+    return model
+
+def hrnet_w32(**kwargs):
+    model = HighResolutionNet(config_w32, **kwargs)
+    model.init_weights()
+    return model
+
+def hrnet_w64(**kwargs):
+    model = HighResolutionNet(config_w64, **kwargs)
     model.init_weights()
     return model
