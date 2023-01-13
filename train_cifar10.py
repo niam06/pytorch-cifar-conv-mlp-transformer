@@ -30,7 +30,7 @@ from models.convmixer import ConvMixer
 from models.googlenet import GoogLeNet
 from models.dla import DLA
 from models.xception import xception
-from models.dynamixer import DynaMixer
+
 #from models.s2mlp import S2MLPv1
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
