@@ -18,3 +18,4 @@ from models.s2mlpv1 import *
 #from preact_resnet import *
 #from mobilenet import *
 #from mobilenetv2 import *
+from models.volo import *
