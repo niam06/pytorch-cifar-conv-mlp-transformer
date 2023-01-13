@@ -36,6 +36,7 @@ from models.xception import xception
 #from models.densenet import DenseNet
 #from models.convnext import ConvNeXt
 #from models.regnet import RegNet
+#from models.volo import VOLO
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate') # resnets.. 1e-3, Vit..1e-4
@@ -148,6 +149,20 @@ elif args.net=='convnext_large':
     net = convnext_large()
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
+    
+    
+elif args.net=='volo_d1':
+    net = volo_d1()
+elif args.net=='volo_d2':
+    net = volo_d2()
+elif args.net=='volo_d3':
+    net = volo_d3()
+elif args.net=='volo_d4':
+    net = volo_d4()
+elif args.net=='volo_d5':
+    net = volo_d5()
+    
+   
 elif args.net=='regnetx200':
     net = RegNetX_200MF()
 elif args.net=='regnetx400':
