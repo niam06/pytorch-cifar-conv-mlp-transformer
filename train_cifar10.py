@@ -129,6 +129,8 @@ elif args.net=="sparse_mlp":
     net=SparseMLP()
 elif args.net=="morph_mlp":
     net=MorphMLP()
+elif args.net=="dyna_mixer":
+    net=DynaMixer()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
