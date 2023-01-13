@@ -149,21 +149,7 @@ elif args.net=='convnext_large':
     net = convnext_large()
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
-    
-    
-elif args.net=='volo_d1':
-    net = volo_d1()
-elif args.net=='volo_d2':
-    net = volo_d2()
-elif args.net=='volo_d3':
-    net = volo_d3()
-elif args.net=='volo_d4':
-    net = volo_d4()
-elif args.net=='volo_d5':
-    net = volo_d5()
-    
-elif args.net=='xcit_nano_12_p16':
-    net = xcit_nano_12_p16()
+
 elif args.net=='regnetx200':
     net = RegNetX_200MF()
 elif args.net=='regnetx400':
