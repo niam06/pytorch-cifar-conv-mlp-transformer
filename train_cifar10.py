@@ -150,7 +150,12 @@ elif args.net=='convnext_large':
 elif args.net=='convnext_xlarge':
     net = convnext_xlarge()
 elif args.net=='raft_mlp':
-    net = RaftMLP()
+    net = RaftMLP(layers=[
+            {"depth": 12,
+            "dim": 768,
+            "patch_size": 16,
+            "raft_size": 4}],
+        gap = True)
 elif args.net=='regnetx200':
     net = RegNetX_200MF()
 elif args.net=='regnetx400':
