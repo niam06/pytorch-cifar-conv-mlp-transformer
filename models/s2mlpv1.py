@@ -3,7 +3,6 @@
 import torch
 from torch import nn
 from einops.layers.torch import Reduce
-from .utils import pair
 
 class PreNormResidual(nn.Module):
     def __init__(self, dim, fn):
