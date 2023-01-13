@@ -3,4 +3,3 @@ einops
 odach
 wandb
 timm
-mmdet

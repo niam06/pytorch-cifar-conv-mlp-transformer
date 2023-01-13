@@ -42,6 +42,8 @@ from models.cyclemlp import CycleNet
 from models.asmlp import AS_MLP
 from models.gfnet import GFNet, GFNetPyramid
 from models.msmlp import MS_MLP
+from models.wavemlp import WaveNet
+from models.hiremlp import HireMLPNet
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -716,7 +718,114 @@ elif args.net == 'msmlp_b':
         patch_size=4,
         num_classes=10
 )
-  
+elif args.net == 'wavemlp':
+        net = WaveNet(
+        transitions = [True, True, True, True],
+        layers = [2, 2, 4, 2],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        patch_size=7,
+        num_classes=10
+)
+elif args.net == 'wavemlp_t':
+        net = WaveNet(
+        transitions = [True, True, True, True],
+        layers = [2, 2, 4, 2],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        patch_size=7,
+        num_classes=10
+)
+elif args.net == 'wavemlp_s':
+        net = WaveNet(
+        transitions = [True, True, True, True],
+        layers = [2, 3, 10, 3],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        patch_size=7,
+        num_classes=10
+)
+elif args.net == 'wavemlp_m':
+        net = WaveNet(
+        transitions = [True, True, True, True],
+        layers = [3, 4, 18, 3],
+        mlp_ratios = [8, 8, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        patch_size=7,
+        num_classes=10
+)
+elif args.net == 'wavemlp_b':
+        net = WaveNet(
+        transitions = [True, True, True, True],
+        layers = [2, 2, 8, 2],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [96, 192, 384, 768],
+        patch_size=7,
+        num_classes=10
+)
+elif args.net == 'hiremlp':
+        net = HireMLPNet(
+        layers = [2, 2, 4, 2],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        pixel = [4, 3, 3, 2],
+        step_stride = [2, 2, 3, 2],
+        step_dilation = [2, 2, 1, 1],
+        step_pad_mode = 'c',
+        pixel_pad_mode = 'c',
+        num_classes=10
+)
+elif args.net == 'hiremlp_t':
+        net = HireMLPNet(
+        layers = [2, 2, 4, 2],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        pixel = [4, 3, 3, 2],
+        step_stride = [2, 2, 3, 2],
+        step_dilation = [2, 2, 1, 1],
+        step_pad_mode = 'c',
+        pixel_pad_mode = 'c',
+        num_classes=10
+)
+elif args.net == 'hiremlp_s':
+        net = HireMLPNet(
+        layers = [3, 4, 10, 3],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        pixel = [4, 3, 3, 2],
+        step_stride = [2, 2, 3, 2],
+        step_dilation = [2, 2, 1, 1],
+        step_pad_mode = 'c',
+        pixel_pad_mode = 'c',
+        num_classes=10
+)
+elif args.net == 'hiremlp_b':
+        net = HireMLPNet(
+        layers = [4, 6, 24, 3],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [64, 128, 320, 512],
+        pixel = [4, 3, 3, 2],
+        step_stride = [2, 2, 3, 2],
+        step_dilation = [2, 2, 1, 1],
+        step_pad_mode = 'c',
+        pixel_pad_mode = 'c',
+        num_classes=10
+)
+elif args.net == 'hiremlp_l':
+        net = HireMLPNet(
+        layers = [4, 6, 24, 3],
+        mlp_ratios = [4, 4, 4, 4],
+        embed_dims = [96, 192, 384, 768],
+        pixel = [4, 3, 3, 2],
+        step_stride = [2, 2, 3, 2],
+        step_dilation = [2, 2, 1, 1],
+        step_pad_mode = 'c',
+        pixel_pad_mode = 'c',
+        num_classes=10
+)
+
+
+
 
 
 # For Multi-GPU
