@@ -31,6 +31,7 @@ from models.googlenet import GoogLeNet
 from models.dla import DLA
 from models.xception import xception
 from models.dynamixer import DynaMixer
+#from models.s2mlp import S2MLPv1
 #from models.efficientnet import EfficientNet
 #from models.densenet import DenseNet
 #from models.convnext import ConvNeXt
@@ -158,6 +159,10 @@ elif args.net=="xception":
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
+elif args.net=="s2mlpv1_deep":
+    net = S2MLPv1_deep()
+elif args.net=="s2mlpv2_wide":
+    net = S2MLPv1_wide()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
