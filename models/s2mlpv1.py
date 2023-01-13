@@ -4,6 +4,11 @@ import torch
 from torch import nn
 from einops.layers.torch import Reduce
 
+
+
+def pair(val):
+    return (val, val) if not isinstance(val, tuple) else val
+
 class PreNormResidual(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
