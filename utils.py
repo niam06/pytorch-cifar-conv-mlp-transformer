@@ -44,9 +44,9 @@ def init_params(net):
                 init.constant(m.bias, 0)
 
 
-try:
+if sys.platform == 'posix':
 	_, term_width = os.popen('stty size', 'r').read().split()
-except:
+else:
 	term_width = 80
 term_width = int(term_width)
 

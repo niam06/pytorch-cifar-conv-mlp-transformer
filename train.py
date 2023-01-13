@@ -36,7 +36,7 @@ def main(args,
           use_amp=False,
           aug=True,):
     
-    usewandb = not args.wandb
+    usewandb = args.wandb
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     best_acc = 0.  # best test accuracy
     start_epoch = 0  # start from epoch 0 or last checkpoint epoch
@@ -102,7 +102,7 @@ def main(args,
         net = ResNet50()
     elif args.net=='res101':
         net = ResNet101()
-    elif args.net=="resnext":
+    elif args.net=='resnext':
         net = ResNeXt29_2x64d()
     elif args.net=="senet":
         net = SENet18()
@@ -181,15 +181,16 @@ def main(args,
         layer_dropout = 0.05
     )
     elif args.net=="swin":
-        net = swin_t(window_size=patch,
-                    num_classes=10,
-                    downscaling_factors=(2,2,2,1))
+        net = swin_t(num_classes=num_classes)
     elif args.net=="hrnet":
         net = get_cls_net()
     elif args.net=="squeezenet":
         net = SqueezeNet(bs)
     elif args.net=="gcvit":
         net = gc_vit_small(num_classes=num_classes)
+    else:
+        print("No model found")
+        exit()
     
     # For Multi-GPU
     if 'cuda' in device:
@@ -262,7 +263,7 @@ def main(args,
 
         val_loss, acc, best_acc = test.test(epoch, net, testloader, device, criterion, optimizer, scaler, best_acc, args)
         
-        scheduler.step(epoch-1) # step cosine scheduling
+        scheduler.step() # step cosine scheduling
         
         list_loss.append(val_loss)
         list_acc.append(acc)
