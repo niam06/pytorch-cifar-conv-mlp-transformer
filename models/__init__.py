@@ -13,6 +13,7 @@ from models.efficientnet import *
 from models.densenet import *
 from models.convnext import *
 from models.regnet import *
+from models.s2mlp_v1 import *
 #from resnext import *
 #from preact_resnet import *
 #from mobilenet import *
