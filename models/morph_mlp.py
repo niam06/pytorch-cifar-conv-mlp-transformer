@@ -117,7 +117,7 @@ morphmlp_settings = {
 
 
 class MorphMLP(nn.Module):     
-    def __init__(self, model_name: str = 'T', pretrained: str = None, num_classes: int = 1000, *args, **kwargs) -> None:
+    def __init__(self, model_name: str = 'T', pretrained: str = None, num_classes: int = 10, *args, **kwargs) -> None:
         super().__init__()
         assert model_name in morphmlp_settings.keys(), f"WaveMLP model name should be in {list(morphmlp_settings.keys())}"
         layers, mlp_ratios, embed_dims, chunk_len, stoch_drop = morphmlp_settings[model_name]
