@@ -40,6 +40,8 @@ from models.vip import VisionPermutator, WeightedPermuteMLP
 from models.maxvit import MaxViT
 from models.cyclemlp import CycleNet
 from models.asmlp import AS_MLP
+from models.gfnet import GFNet, GFNetPyramid
+from models.msmlp import MS_MLP
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -633,11 +635,88 @@ elif args.net=='cyclemlp':
     mlp_ratios = [4, 4, 4, 4],
     embed_dims = [64, 128, 320, 512],
     num_classes=10
-    )
+)
 elif args.net=='asmlp':
     net = AS_MLP(
     num_classes=10
-    )
+)
+elif args.net == 'gfnet':
+        net = GFNet( 
+        patch_size=16, 
+        embed_dim=256, 
+        depth=12, 
+        mlp_ratio=4,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6),
+        num_classes=10
+)
+elif args.net == 'gfnet_ti':
+        net = GFNet( 
+        patch_size=16, 
+        embed_dim=256, 
+        depth=12, 
+        mlp_ratio=4,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6),
+        num_classes=10
+)
+elif args.net == 'gfnet_s':
+        net = GFNet(
+        patch_size=16, 
+        embed_dim=384, 
+        depth=19, 
+        mlp_ratio=4, 
+        drop_path_rate=0.15,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6),
+        num_classes=10
+)
+elif args.net == 'gfnet_b':
+        net = GFNet(
+        patch_size=16, 
+        embed_dim=512, 
+        depth=19, 
+        mlp_ratio=4, 
+        drop_path_rate=0.25,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6),
+        num_classes=10
+)
+elif args.net == 'gfnet_h_ti':
+        net = GFNetPyramid(
+        patch_size=4, 
+        embed_dim=[64, 128, 256, 512], 
+        depth=[3, 3, 10, 3],
+        mlp_ratio=[4, 4, 4, 4],
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), 
+        drop_path_rate=0.1,
+        num_classes=10
+)
+elif args.net == 'msmlp':
+        net = MS_MLP(
+        embed_dim=96,
+        depths=[ 3, 3, 9, 3 ],
+        patch_size=4,
+        num_classes=10
+)
+elif args.net == 'msmlp_t':
+        net = MS_MLP(
+        embed_dim=96,
+        depths=[ 3, 3, 9, 3 ],
+        patch_size=4,
+        num_classes=10
+)
+elif args.net == 'msmlp_s':
+        net = MS_MLP(
+        embed_dim=96,
+        depths=[ 3, 3, 27, 3 ],
+        patch_size=4,
+        num_classes=10
+)
+elif args.net == 'msmlp_b':
+        net = MS_MLP(
+        embed_dim=128,
+        depths=[ 3, 3, 27, 3 ],
+        patch_size=4,
+        num_classes=10
+)
+  
 
 
 # For Multi-GPU
