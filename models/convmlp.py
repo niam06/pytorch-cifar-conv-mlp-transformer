@@ -1,9 +1,10 @@
+#code was taken from https://github.com/SHI-Labs/Convolutional-MLPs/tree/master/src and modified
 from torch.hub import load_state_dict_from_url
 import torch.nn as nn
 from .utils.tokenizer import ConvTokenizer
 from .utils.modules import ConvStage, BasicStage
 
-#code was taken from https://github.com/SHI-Labs/Convolutional-MLPs/tree/master/src and modified
+
 __all__ = ['ConvMLP', 'convmlp_s', 'convmlp_m', 'convmlp_l']
 
 
