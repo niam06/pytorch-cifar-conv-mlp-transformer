@@ -1,3 +1,4 @@
+#Copied from https://github.com/liuruiyang98/Jittor-MLP/blob/main/models_pytorch/sparse_mlp.py 
 import torch
 from torch import nn
 from functools import partial
