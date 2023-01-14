@@ -40,6 +40,7 @@ pip-delete-this-directory.txt
 # Others
 checkpoint
 log
+output
 
 # Unit test / coverage reports
 htmlcov/
@@ -89,6 +90,7 @@ PlayGround.ipynb
 #Wandb
 wandb
 data
+artifacts
 
 # pyenv
 .python-version

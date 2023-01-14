@@ -9,5 +9,6 @@ from models.senet import *
 from models.simplevit import *
 from models.squeezenet import *
 from models.swin import *
+from models.swinmlp import *
 from models.vgg import *
 from models.vit import *
