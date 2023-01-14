@@ -5,7 +5,7 @@ from .utils import pair, check_sizes
 '''
 https://github.com/jaketae/g-mlp/blob/master/g_mlp/core.py
 '''
-
+#code was copied from https://github.com/liuruiyang98/Jittor-MLP/blob/main/models_pytorch/g_mlp.py and modified
 
 class SpatialGatingUnit(nn.Module):
     def __init__(self, d_ffn, seq_len):
