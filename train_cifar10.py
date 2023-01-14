@@ -136,7 +136,7 @@ elif args.net=='densenet':
 elif args.net=="googlenet":
     net = GoogLeNet()
 elif args.net=="efficientnetb0":
-    net = EfficientNetB0()
+    net = EfficientNetB0(num_classes = num_classes)
 elif args.net=="dla":
     net = DLA()
 elif args.net=='convnext_tiny':
