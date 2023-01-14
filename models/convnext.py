@@ -12,7 +12,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from timm.models.layers import trunc_normal_, DropPath
-from timm.models.registry import register_model
+
 
 class Block(nn.Module):
     r""" ConvNeXt Block. There are two equivalent implementations:
@@ -156,7 +156,7 @@ model_urls = {
     "convnext_xlarge_22k": "https://dl.fbaipublicfiles.com/convnext/convnext_xlarge_22k_224.pth",
 }
 
-@register_model
+
 def convnext_tiny(pretrained=False,in_22k=False, **kwargs):
     model = ConvNeXt(depths=[3, 3, 9, 3], dims=[96, 192, 384, 768], **kwargs)
     if pretrained:
@@ -165,7 +165,6 @@ def convnext_tiny(pretrained=False,in_22k=False, **kwargs):
         model.load_state_dict(checkpoint["model"])
     return model
 
-@register_model
 def convnext_small(pretrained=False,in_22k=False, **kwargs):
     model = ConvNeXt(depths=[3, 3, 27, 3], dims=[96, 192, 384, 768], **kwargs)
     if pretrained:
@@ -174,7 +173,6 @@ def convnext_small(pretrained=False,in_22k=False, **kwargs):
         model.load_state_dict(checkpoint["model"])
     return model
 
-@register_model
 def convnext_base(pretrained=False, in_22k=False, **kwargs):
     model = ConvNeXt(depths=[3, 3, 27, 3], dims=[128, 256, 512, 1024], **kwargs)
     if pretrained:
@@ -183,7 +181,6 @@ def convnext_base(pretrained=False, in_22k=False, **kwargs):
         model.load_state_dict(checkpoint["model"])
     return model
 
-@register_model
 def convnext_large(pretrained=False, in_22k=False, **kwargs):
     model = ConvNeXt(depths=[3, 3, 27, 3], dims=[192, 384, 768, 1536], **kwargs)
     if pretrained:
@@ -192,7 +189,6 @@ def convnext_large(pretrained=False, in_22k=False, **kwargs):
         model.load_state_dict(checkpoint["model"])
     return model
 
-@register_model
 def convnext_xlarge(pretrained=False, in_22k=False, **kwargs):
     model = ConvNeXt(depths=[3, 3, 27, 3], dims=[256, 512, 1024, 2048], **kwargs)
     if pretrained:
