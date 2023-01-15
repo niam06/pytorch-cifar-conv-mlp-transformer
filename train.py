@@ -266,6 +266,7 @@ def main(args,
         start_epoch = checkpoint['epoch']
         if checkpoint['optimizer'] is not None:
             optimizer.load_state_dict(checkpoint['optimizer'])
+            print("Optimizer loaded")
 
         del checkpoint  # current, saved
 
@@ -323,14 +324,12 @@ def main(args,
         val_loss, acc, best_acc = test.test(
             epoch, net, testloader, device, criterion, optimizer, scaler, best_acc, args)
 
-        scheduler.step()  # step cosine scheduling
-
         list_loss.append(val_loss)
         list_acc.append(acc)
 
         # Log training..
         if usewandb:
-            wandb.log({'epoch': epoch, 'train_loss': trainloss, 'val_loss': val_loss, "val_acc": acc, "lr": optimizer.param_groups[0]["lr"],
+            wandb.log({'epoch': epoch, 'train_loss': trainloss, 'val_loss': val_loss, "val_acc": acc, "train_acc" : 100.*correct/total, "lr": optimizer.param_groups[0]["lr"],
                        "epoch_time": time.time()-start})
 
         # Write out csv..
@@ -349,6 +348,8 @@ def main(args,
         if acc == best_acc:
             checkpoint['optimizer'] = None
             torch.save(checkpoint, path + 'best.pt')
+        
+        scheduler.step()  # step cosine scheduling
 
     # writeout wandb
     if usewandb:
