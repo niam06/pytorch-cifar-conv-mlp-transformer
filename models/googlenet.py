@@ -1,10 +1,11 @@
 '''GoogLeNet with PyTorch.'''
 # Copied From https://github.com/kuangliu/pytorch-cifar/blob/master/models/googlenet.py
+# MIT Licence from Source
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+# Class definition for Inception Module
 class Inception(nn.Module):
     def __init__(self, in_planes, n1x1, n3x3red, n3x3, n5x5red, n5x5, pool_planes):
         super(Inception, self).__init__()
@@ -53,7 +54,7 @@ class Inception(nn.Module):
         y4 = self.b4(x)
         return torch.cat([y1,y2,y3,y4], 1)
 
-
+# Class definition for GoogleNet
 class GoogLeNet(nn.Module):
     def __init__(self):
         super(GoogLeNet, self).__init__()
