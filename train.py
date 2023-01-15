@@ -422,7 +422,7 @@ if __name__ == '__main__':
     parser.add_argument('--resume', '-r', action='store_true',
                         help='resume from checkpoint')
     parser.add_argument('--opt', default='adam', type=str, help='optimizer')
-    parser.add_argument('--scheduler', default='adam', type=str, help='scheduler')
+    parser.add_argument('--scheduler', default='cosine', type=str, help='scheduler')
     parser.add_argument('--noaug', action='store_true',
                         help='disable use randomaug')
     parser.add_argument('--noamp', action='store_true',
