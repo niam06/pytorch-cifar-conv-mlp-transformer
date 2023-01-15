@@ -41,3 +41,16 @@ Wed Oct 28 02:11:19 2020 Epoch 38, lr: 0.0000010, val loss: 31.56442, acc: 93.00
 Wed Oct 28 02:11:56 2020 Epoch 39, lr: 0.0000010, val loss: 31.77023, acc: 93.01000
 Wed Oct 28 02:12:33 2020 Epoch 40, lr: 0.0000010, val loss: 31.19953, acc: 92.92000
 Wed Oct 28 02:13:10 2020 Epoch 41, lr: 0.0000010, val loss: 31.44710, acc: 92.97000
+Sun Jan 15 11:57:27 2023 Epoch 0, lr: 0.0001000, val loss: 89.91566, acc: 15.20000
+Sun Jan 15 11:58:41 2023 Epoch 1, lr: 0.0000500, val loss: 88.69112, acc: 17.45000
+Sun Jan 15 12:04:10 2023 Epoch 1, lr: 0.0000000, val loss: 95.37057, acc: 10.51000
+Sun Jan 15 12:12:26 2023 Epoch 1, lr: 0.0000000, val loss: 94.28650, acc: 9.37000
+Sun Jan 15 12:13:36 2023 Epoch 2, lr: 0.0000000, val loss: 94.28787, acc: 9.35000
+Sun Jan 15 12:16:38 2023 Epoch 1, lr: 0.0001000, val loss: 90.24383, acc: 15.38000
+Sun Jan 15 12:17:53 2023 Epoch 2, lr: 0.0000750, val loss: 89.09041, acc: 16.82000
+Sun Jan 15 12:27:27 2023 Epoch 0, lr: 0.0001000, val loss: 89.86641, acc: 14.86000
+Sun Jan 15 12:28:31 2023 Epoch 1, lr: 0.0000500, val loss: 88.88394, acc: 16.98000
+Sun Jan 15 12:30:40 2023 Epoch 1, lr: 0.0000000, val loss: 88.92866, acc: 16.89000
+Sun Jan 15 12:31:44 2023 Epoch 2, lr: 0.0000000, val loss: 88.99001, acc: 16.52000
+Sun Jan 15 12:35:26 2023 Epoch 1, lr: 0.0000000, val loss: 88.92658, acc: 16.88000
+Sun Jan 15 12:36:28 2023 Epoch 2, lr: 0.0000000, val loss: 88.98431, acc: 16.62000

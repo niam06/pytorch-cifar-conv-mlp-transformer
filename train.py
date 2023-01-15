@@ -250,7 +250,7 @@ def main(args,
         assert os.path.isdir(
             'checkpoint'), 'Error: no checkpoint directory found!'
         if weights_from != '':
-            checkpoint = torch.load(weights_from, strict=False)
+            checkpoint = torch.load(weights_from)
         else:
             try:
                 artifact = wandb.use_artifact(
@@ -262,7 +262,7 @@ def main(args,
                 print("No checkpoint found")
                 wandb.finish()
                 exit()
-        net.load_state_dict(checkpoint['model'], strict=False)
+        net.load_state_dict(checkpoint['model'])
         start_epoch = checkpoint['epoch']
         if checkpoint['optimizer'] is not None:
             optimizer.load_state_dict(checkpoint['optimizer'])
@@ -285,7 +285,7 @@ def main(args,
     if usewandb:
         wandb.watch(net)
 
-    start_time = time.strftime("%d-%m-%Y_%H-%M-%S")
+    start_time = time.strftime("%Y-%m-%d_%H-%M-%S")
     path = 'output/' + args.net + "/" + start_time + "/"
 
     if not os.path.exists(path):
@@ -341,7 +341,7 @@ def main(args,
         print(list_loss)
 
         checkpoint = {'epoch': epoch,
-                      'model': net.module.state_dict(),
+                      'model': net.state_dict(),
                       'optimizer': optimizer.state_dict()}
 
         torch.save(checkpoint, path + 'latest.pt')
@@ -406,12 +406,14 @@ if __name__ == '__main__':
     if args.wandb:
         if args.watermark == '':
             watermark = "{}_lr{}_{}".format(
-                args.net, args.lr, time.strftime("%d-%m-%Y_%H-%M-%S"))
+                args.net, args.lr, time.strftime("%Y-%m-%d_%H-%M-%S"))
         else:
             watermark = args.watermark
         wandb.init(project='PyTorch-Cifar-10', entity="iut-hert",
                    name=watermark, config=args)
         art = wandb.Artifact(watermark, type="model")
+    else:
+        art =None
 
     main(args,
          bs=args.bs,
