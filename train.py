@@ -35,7 +35,7 @@ def main(args,
          use_amp=False,
          aug=True,
          opt='adam',
-         schlr='cosine'
+         schlr='cosine',
          artifact=None,):
 
     usewandb = args.wandb
