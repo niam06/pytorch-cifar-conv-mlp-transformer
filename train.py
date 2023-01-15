@@ -263,7 +263,7 @@ def main(args,
                 wandb.finish()
                 exit()
         net.load_state_dict(checkpoint['model'])
-        start_epoch = checkpoint['epoch']
+        start_epoch = checkpoint['epoch'] + 1
         if checkpoint['optimizer'] is not None:
             optimizer.load_state_dict(checkpoint['optimizer'])
             print("Optimizer loaded")
