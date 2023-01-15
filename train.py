@@ -319,9 +319,9 @@ def main(args,
     criterion = nn.CrossEntropyLoss()
 
     # use cosine scheduling
-    if scheduler == "cosine":
+    if schlr == "cosine":
          scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs)
-    if scheduler == "reduceonplateau":
+    if schlr == "reduceonplateau":
          scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,'min')
 
     # Training
@@ -422,7 +422,7 @@ if __name__ == '__main__':
     parser.add_argument('--resume', '-r', action='store_true',
                         help='resume from checkpoint')
     parser.add_argument('--opt', default='adam', type=str, help='optimizer')
-    parser.add_argument('--scheduler', default='cosine', type=str, help='scheduler')
+    parser.add_argument('--schlr', default='cosine', type=str, help='scheduler')
     parser.add_argument('--noaug', action='store_true',
                         help='disable use randomaug')
     parser.add_argument('--noamp', action='store_true',
