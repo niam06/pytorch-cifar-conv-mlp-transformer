@@ -39,8 +39,8 @@ pip-delete-this-directory.txt
 
 # Others
 checkpoint
-log
 output
+numpy.mustache
 
 # Unit test / coverage reports
 htmlcov/
