@@ -7,11 +7,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-    """Each Block of MobilenetV2
+"""__Each Block of MobilenetV2__
 
-    Returns:
-        _type_: _description_
-    """
+Returns:
+    _type_: _description_
+"""
 class Block(nn.Module):
     '''expand + depthwise + pointwise'''
     def __init__(self, in_planes, out_planes, expansion, stride):
