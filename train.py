@@ -40,6 +40,7 @@ def main(
     aug=True,
     opt="adam",
     artifact=None,
+    schlr='cosine',
 ):
 
     usewandb = args.wandb
@@ -158,7 +159,7 @@ def main(
         net = torch.nn.DataParallel(net)  # make parallel
         cudnn.benchmark = True
 
-    optimizer = Optimizer(args, opt, net)
+    optimizer = Optimizer(net, opt, args)
 
     if resume:
         # Load checkpoint.
@@ -192,7 +193,10 @@ def main(
     criterion = nn.CrossEntropyLoss()
 
     # use cosine scheduling
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs)
+    if schlr == "cosine":
+         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs)
+    if schlr == "reduceonplateau":
+         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,'min')
 
     # Training
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
@@ -248,7 +252,7 @@ def main(
         trainloss = train_loss / (batch_idx + 1)
 
         # Evaluation
-        val_loss, acc, best_acc = test.test(
+        val_loss, acc, best_acc = test(
             epoch, net, testloader, device, criterion, optimizer, scaler, best_acc, args
         )
 
@@ -288,7 +292,10 @@ def main(
             checkpoint["optimizer"] = None
             torch.save(checkpoint, path + "best.pt")
 
-        scheduler.step()  # step cosine scheduling
+        if schlr == "cosine":
+            scheduler.step()
+        elif schlr == "reduceonplateau":
+            scheduler.step(val_loss)
 
     # writeout wandb
     if usewandb:
@@ -355,6 +362,7 @@ if __name__ == "__main__":
         "--convkernel", type=int, default="8", help="parameter for convmixer"
     )
     parser.add_argument("--watermark", type=str, default="")
+    parser.add_argument('--schlr', default='cosine', type=str, help='scheduler')
 
     args = parser.parse_args()
 
@@ -391,4 +399,5 @@ if __name__ == "__main__":
         aug=args.noaug,
         opt=args.opt,
         artifact=art,
+        schlr=args.schlr,
     )
