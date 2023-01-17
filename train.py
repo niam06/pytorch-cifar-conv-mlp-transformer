@@ -64,6 +64,7 @@ def main(
         "gcit_small",
         "gcit_base",
         "gcit_large",
+        "mobilenet_v2",
     ]:
         img_size = 224
 
