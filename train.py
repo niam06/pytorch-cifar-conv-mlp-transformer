@@ -214,6 +214,7 @@ def main(
         os.makedirs(path)
 
     net.cuda()
+    epoch = start_epoch
     for epoch in range(start_epoch, n_epochs):
         start = time.time()
         print("\nEpoch: %d" % epoch)
@@ -299,21 +300,25 @@ def main(
 
     # writeout wandb
     if usewandb:
-        model_artifact = wandb.Artifact(
-            "run_" + args.net,
-            type="model",
-            metadata={
-                "original_url": str(path),
-                "epochs_trained": epoch + 1,
-                "total_epochs": args.n_epochs,
-                "best_acc": best_acc,
-            },
-        )
-        # model_artifact.add_file(path + 'latest.pt', name="wandb_latest_{}_lr{}.pt".format(args.net, args.lr))
-        model_artifact.add_file(
-            path + "best.pt", name="wandb_best_{}.pt".format(args.net)
-        )
-        wandb.log_artifact(model_artifact)
+        try:
+            model_artifact = wandb.Artifact(
+                "run_" + args.net,
+                type="model",
+                metadata={
+                    "original_url": str(path),
+                    "epochs_trained": epoch + 1,
+                    "total_epochs": args.n_epochs,
+                    "best_acc": best_acc,
+                },
+            )
+            # model_artifact.add_file(path + 'latest.pt', name="wandb_latest_{}_lr{}.pt".format(args.net, args.lr))
+            model_artifact.add_file(
+                path + "best.pt", name="wandb_best_{}.pt".format(args.net)
+            )
+            wandb.log_artifact(model_artifact)
+        except:
+            print("Failed to log model to wandb")
+        
         wandb.finish()
 
 
