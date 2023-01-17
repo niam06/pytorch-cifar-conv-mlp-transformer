@@ -1,9 +1,17 @@
-#Copied from https://github.com/kuangliu/pytorch-cifar/blob/master/models/mobilenetv2.py
+#Modified from https://github.com/kuangliu/pytorch-cifar/blob/master/models/mobilenetv2.py
+#------Extended copyright from our repository--------# 
+#Licensed under The MIT License [see LICENSE for details]
+#------Copyright from https://github.com/kuangliu/pytorch-cifar/blob/master/models/mobilenetv2.py--------#
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+    """Each Block of MobilenetV2
 
+    Returns:
+        _type_: _description_
+    """
 class Block(nn.Module):
     '''expand + depthwise + pointwise'''
     def __init__(self, in_planes, out_planes, expansion, stride):
@@ -31,6 +39,13 @@ class Block(nn.Module):
         out = self.bn3(self.conv3(out))
         out = out + self.shortcut(x) if self.stride==1 else out
         return out
+
+
+        """MobileNetV2 model structure
+
+        Returns:
+            _type_: _description_
+        """
 
 
 class MobileNetV2(nn.Module):
