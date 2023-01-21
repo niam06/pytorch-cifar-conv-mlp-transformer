@@ -13,7 +13,7 @@ import csv
 import time
 
 from models import *
-from utils import progress_bar
+from utils import progress_bar, EarlyStopper
 from randomaug import RandAugment
 import wandb
 from test import test
@@ -201,6 +201,9 @@ def main(
     # Training
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
 
+    # Early stopping
+    early_stopper = EarlyStopper(patience=3, min_delta=10)
+
     list_loss = []
     list_acc = []
 
@@ -297,6 +300,11 @@ def main(
             scheduler.step()
         elif schlr == "reduceonplateau":
             scheduler.step(val_loss)
+
+        # early stopping
+        if early_stopper.early_stop(val_loss):
+            print("We are at epoch:", epoch, "and we are stopping early")
+            break
 
     # writeout wandb
     if usewandb:
