@@ -17,8 +17,12 @@ def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
         net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
     elif args.net=="mobilenet_v2":
         net=MobileNetV2()
-    elif args.net=="convmlp":
+    elif args.net=="convmlp_small":
         net=ConvMLP(blocks=[2, 4, 2],dims=[128, 256, 512],mlp_ratios=[2, 2, 2])
+    elif args.net=="convmlp_medium":
+        net=ConvMLP(blocks=[3, 6, 3], mlp_ratios=[3, 3, 3], dims=[128, 256, 512])
+    elif args.net=="convmlp_large":
+        net=ConvMLP(blocks=[4, 8, 3], mlp_ratios=[3, 3, 3], dims=[192, 384, 768])
     elif args.net=="g_mlp":
         net=gMLPForImageClassification()
     elif args.net=="sparse_mlp":
