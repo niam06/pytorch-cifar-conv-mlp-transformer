@@ -17,4 +17,5 @@ from models.swin import *
 from models.xception import *
 from models.xcit import *
 from models.simplevit import *
+from models.mlpmixer import *
 
