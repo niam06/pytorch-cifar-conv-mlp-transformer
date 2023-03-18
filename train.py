@@ -286,7 +286,7 @@ def main(args,
         cudnn.benchmark = True
 
     if opt == "adam":
-        optimizer = optim.Adam(net.parameters(), lr=args.lr,momentum=0.9, weight_decay=5e-4)
+        optimizer = optim.Adam(net.parameters(), lr=args.lr,betas=(0.9, 0.999), weight_decay=5e-4)
     elif opt == "sgd":
         optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=0.9, weight_decay=5e-4)
 
