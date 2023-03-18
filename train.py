@@ -288,7 +288,7 @@ def main(args,
     if opt == "adam":
         optimizer = optim.Adam(net.parameters(), lr=args.lr)
     elif opt == "sgd":
-        optimizer = optim.SGD(net.parameters(), lr=args.lr)
+        optimizer = optim.SGD(net.parameters(), lr=args.lr,momentum=0.9, weight_decay=5e-4)
 
     if resume:
         # Load checkpoint.
@@ -321,7 +321,7 @@ def main(args,
 
     # use cosine scheduling
     if schlr == "cosine":
-         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs)
+         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=200)
     if schlr == "reduceonplateau":
          scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,'min')
 
@@ -335,7 +335,7 @@ def main(args,
         wandb.watch(net)
 
     start_time = time.strftime("%Y-%m-%d_%H-%M-%S")
-    path = 'output/' + args.net + "/" + start_time + "/"
+    path = 'output/' + 'rerun_' + args.net + "/" + start_time + "/"
 
     if not os.path.exists(path):
         os.makedirs(path)
@@ -401,7 +401,7 @@ def main(args,
 
     # writeout wandb
     if usewandb:
-        model_artifact = wandb.Artifact('run_' + args.net,
+        model_artifact = wandb.Artifact('re_run_' + args.net,
                                         type='model',
                                         metadata={
                                             'original_url': str(path),
