@@ -194,7 +194,7 @@ def main(
 
     # use cosine scheduling
     if schlr == "cosine":
-         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs)
+         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs, T_max=200)
     if schlr == "reduceonplateau":
          scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,'min')
 
@@ -211,7 +211,7 @@ def main(
         wandb.watch(net)
 
     start_time = time.strftime("%Y-%m-%d_%H-%M-%S")
-    path = "output/" + args.net + "/" + start_time + "/"
+    path = 'output/' + 'rerun_' + args.net + "/" + start_time + "/"
 
     if not os.path.exists(path):
         os.makedirs(path)
@@ -310,7 +310,7 @@ def main(
     if usewandb:
         try:
             model_artifact = wandb.Artifact(
-                "run_" + args.net,
+                "rerun_" + args.net,
                 type="model",
                 metadata={
                     "original_url": str(path),

@@ -4,7 +4,7 @@ def Optimizer(net, opt, args):
     if opt == "adam":
         optimizer = optim.Adam(net.parameters(), lr=args.lr)
     elif opt == "sgd":
-        optimizer = optim.SGD(net.parameters(), lr=args.lr)
+        optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
     elif opt == "rmsprop":
         optimizer = optim.RMSprop(net.parameters(), lr=args.lr)
     elif opt == "adagrad":

@@ -2,6 +2,24 @@ from models import *
 
 
 def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
+    """_summary_
+
+
+
+    Parameters
+    ----------
+    args : _type_ _description_
+    img_size : _type_ _description_
+    num_classes : _type_ _description_
+    bs : _type_ _description_
+    patch : _type_ _description_
+    dimhead : _type_ _description_
+    convkernel : _type_ _description_
+
+    Returns
+    -------
+    _type_ _description_
+    """
     if args.net == "res18":
         net = ResNet18()
     elif args.net == "vgg":
@@ -110,7 +128,7 @@ def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
         net = hrnet_w64()
         opt = "sgd"
     elif args.net == "squeezenet":
-        net = SqueezeNet(bs)
+        net = SqueezeNet()
     elif args.net == "gcvit_tiny":
         net = gc_vit_tiny(num_classes=num_classes)
     elif args.net == "gcvit_small":
