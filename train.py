@@ -194,7 +194,7 @@ def main(
 
     # use cosine scheduling
     if schlr == "cosine":
-         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.n_epochs, T_max=200)
+         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
     if schlr == "reduceonplateau":
          scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,'min')
 
@@ -202,7 +202,7 @@ def main(
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
 
     # Early stopping
-    early_stopper = EarlyStopper(patience=3, min_delta=10)
+    early_stopper = EarlyStopper(patience=10, min_delta=10)
 
     list_loss = []
     list_acc = []
