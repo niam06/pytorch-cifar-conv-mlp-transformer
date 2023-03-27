@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
-
 Train CIFAR10 with PyTorch and Vision Transformers!
 written by @kentaroy47, @arutema47
-
 '''
 
 from __future__ import print_function
@@ -44,6 +42,16 @@ from models.gfnet import GFNet, GFNetPyramid
 from models.msmlp import MS_MLP
 from models.wavemlp import WaveNet
 from models.hiremlp import HireMLPNet
+from models.googlenet import GoogLeNet
+from models.dla import DLA
+from models.xception import xception
+from models.raft_mlp import RaftMLP
+#from models.s2mlp import S2MLPv1
+#from models.efficientnet import EfficientNet
+#from models.densenet import DenseNet
+#from models.convnext import ConvNeXt
+#from models.regnet import RegNet
+#from models.volo import VOLO
 
 # parsers
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -131,9 +139,54 @@ elif args.net=='res50':
     net = ResNet50()
 elif args.net=='res101':
     net = ResNet101()
+elif args.net=='densenet121':
+    net = DenseNet121()
+elif args.net=='densenet161':
+    net = DenseNet161()
+elif args.net=='densenet169':
+    net = DenseNet169()
+elif args.net=='densenet201':
+    net = DenseNet201()
+elif args.net=='densenet':
+    net = densenet_cifar()
+elif args.net=="googlenet":
+    net = GoogLeNet()
+elif args.net=="efficientnetb0":
+    net = EfficientNetB0()
+elif args.net=="dla":
+    net = DLA()
+elif args.net=='convnext_tiny':
+    net = convnext_tiny()
+elif args.net=='convnext_small':
+    net = convnext_small()
+elif args.net=='convnext_base':
+    net = convnext_base()
+elif args.net=='convnext_large':
+    net = convnext_large()
+elif args.net=='convnext_xlarge':
+    net = convnext_xlarge()
+elif args.net=='raft_mlp':
+    net = RaftMLP(layers=[
+            {"depth": 12,
+            "dim": 768,
+            "patch_size": 16,
+            "raft_size": 4}],
+        gap = True)
+elif args.net=='regnetx200':
+    net = RegNetX_200MF()
+elif args.net=='regnetx400':
+    net = RegNetX_400MF()
+elif args.net=="regnety400":
+    net = RegNetY_400MF()
+elif args.net=="xception":
+    net = xception()
 elif args.net=="convmixer":
     # from paper, accuracy >96%. you can tune the depth and dim to scale accuracy and speed.
     net = ConvMixer(256, 16, kernel_size=args.convkernel, patch_size=1, n_classes=10)
+elif args.net=="s2mlpv1_deep":
+    net = S2MLPv1_deep()
+elif args.net=="s2mlpv2_wide":
+    net = S2MLPv1_wide()
 elif args.net=="mlpmixer":
     from models.mlpmixer import MLPMixer
     net = MLPMixer(
@@ -955,4 +1008,4 @@ for epoch in range(start_epoch, args.n_epochs):
 # writeout wandb
 if usewandb:
     wandb.save("wandb_{}.h5".format(args.net))
-    
+
