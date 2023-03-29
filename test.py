@@ -41,3 +41,4 @@ def test(epoch, net, testloader, device, criterion, optimizer, scaler, best_acc,
     with open(f'log/log_{args.net}_patch{args.patch}.txt', 'a') as appender:
         appender.write(content + "\n")
     return test_loss, acc, best_acc
+

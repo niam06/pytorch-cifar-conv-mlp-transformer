@@ -127,7 +127,7 @@ def format_time(seconds):
     if f == '':
         f = '0ms'
     return f
-
+    
 class EarlyStopper:
     def __init__(self, patience=1, min_delta=0):
         self.patience = patience
@@ -144,3 +144,4 @@ class EarlyStopper:
             if self.counter >= self.patience:
                 return True
         return False
+
