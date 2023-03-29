@@ -1,3 +1,4 @@
+
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -17,6 +18,7 @@ import wandb
 from test import test
 from net import Net
 from optimizer import Optimizer
+
 
 
 def main(args,
@@ -54,6 +56,7 @@ def main(args,
         img_size = 256
 
     # Set number of classes and data transforms based on the dataset used
+
     if dataset == "cifar10":
         num_classes = 10
 
@@ -110,6 +113,7 @@ def main(args,
         # train-test sampler need to be implemented
 
     elif dataset == 'imagenet':
+
         num_classes = 1000
         # train-test sampler need to be implemented
 
@@ -119,6 +123,7 @@ def main(args,
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=bs, shuffle=False, num_workers=num_workers
     )
+
 
     # Model factory..
     print('==> Building model..')
@@ -134,6 +139,7 @@ def main(args,
     )
 
     # For Multi-GPU
+
     if 'cuda' in device:
         print(device)
         print("using data parallel")
@@ -167,7 +173,6 @@ def main(args,
         if checkpoint['optimizer'] is not None:
             optimizer.load_state_dict(checkpoint['optimizer'])
             print('Optimizer loaded')
-
         del checkpoint  # current, saved
 
     # Loss is CE
@@ -196,7 +201,6 @@ def main(args,
         os.makedirs(path)
 
     net.cuda()
-
     epoch = start_epoch
     for epoch in range(start_epoch, n_epochs):
         start = time.time()

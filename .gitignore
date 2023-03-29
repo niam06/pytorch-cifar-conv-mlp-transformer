@@ -37,6 +37,11 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Others
+checkpoint
+output
+numpy.mustache
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -56,7 +61,6 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -77,9 +81,16 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+
 # IPython
 profile_default/
 ipython_config.py
+PlayGround.ipynb
+
+#Wandb
+wandb
+data
+artifacts
 
 # pyenv
 .python-version

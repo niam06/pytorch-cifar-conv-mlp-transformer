@@ -12,6 +12,7 @@ def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
     patch : _type_ _description_
     dimhead : _type_ _description_
     convkernel : _type_ _description_
+
     Returns
     -------
     _type_ _description_
@@ -30,7 +31,6 @@ def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
         net = ResNeXt29_2x64d()
     elif args.net == "senet":
         net = SENet18()
-
     elif args.net=='densenet121':
         net = DenseNet121()
     elif args.net=='densenet161':
@@ -807,9 +807,7 @@ def Net(args, img_size, num_classes, bs, patch, dimhead, convkernel):
             pixel_pad_mode = 'c',
             num_classes=10
     )
-    
     else:
         print("No model found")
         exit()
-
     return net
