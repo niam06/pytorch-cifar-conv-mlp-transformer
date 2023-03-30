@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 '''VGG11/13/16/19 in Pytorch.'''
-import torch
 import torch.nn as nn
 
 
@@ -38,12 +37,3 @@ class VGG(nn.Module):
                 in_channels = x
         layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
         return nn.Sequential(*layers)
-
-
-def test():
-    net = VGG('VGG11')
-    x = torch.randn(2,3,32,32)
-    y = net(x)
-    print(y.size())
-
-# test()
